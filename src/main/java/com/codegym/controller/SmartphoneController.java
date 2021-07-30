@@ -46,5 +46,11 @@ public class SmartphoneController {
         return new ResponseEntity<>(smartphone, HttpStatus.OK);
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<Smartphone> update(@RequestBody Smartphone smartphone){
+        smartphoneService.save(smartphone);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
 
 }

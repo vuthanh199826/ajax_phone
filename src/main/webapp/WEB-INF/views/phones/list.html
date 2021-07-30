@@ -75,15 +75,39 @@
 
           let str = "";
           str += "<tr" +
-                  "><td>Producer</td><td><input type='text' value='"+data.producer+"'></td>" +
+                  "><td>Producer</td><td><input id='newProducer' type='text' value='"+data.producer+"'></td>" +
                   "</tr>" +
-                  "<tr><td>Model</td><td><input type='text' value='"+data.model+"'></td></tr>" +
-                  "<tr><td>Model</td><td><input type='text' value='"+data.price+"'></td></tr>" +
-                  "<tr><td>ID</td><td><input type='hidden' value='"+data.id+"'></td></tr>" +
-                  "<button type='button' onclick=''>Update</button>"
+                  "<tr><td>Model</td><td><input id='newModel' type='text' value='"+data.model+"'></td></tr>" +
+                  "<tr><td>Model</td><td><input id='newPrice' type='text' value='"+data.price+"'></td></tr>" +
+                  "<tr><td>ID</td><td><input id='newID' type='hidden' value='"+data.id+"'></td></tr>" +
+                  "<button type='button' onclick='update()'>Update</button>"
           document.getElementById("smartphoneList").innerHTML = str;
-
         }
+      })
+    }
+
+    function update(){
+      let producer = $('#newProducer').val();
+      let model = $('#newModel').val();
+      let price = $('#newPrice').val();
+      let id = $('#newID').val();
+      let newSmartphone = {
+        id : id,
+        producer: producer,
+        model: model,
+        price: price
+      };
+
+      $.ajax({
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        type: "POST",
+        data: JSON.stringify(newSmartphone),
+        url: "/smartphones/update",
+        success: successHandler
+
       })
     }
 
